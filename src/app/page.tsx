@@ -68,6 +68,29 @@ function MusicButton() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
 
+  // Autoplay: intenta reproducir al cargar, si el navegador bloquea, reproduce en el primer click
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const tryPlay = () => {
+      audio.play().then(() => {
+        setPlaying(true);
+      }).catch(() => {
+        // Navegador bloqueó autoplay, reproducir en primer interacción
+        const playOnInteraction = () => {
+          audio.play().then(() => setPlaying(true));
+          document.removeEventListener("click", playOnInteraction);
+          document.removeEventListener("touchstart", playOnInteraction);
+        };
+        document.addEventListener("click", playOnInteraction, { once: true });
+        document.addEventListener("touchstart", playOnInteraction, { once: true });
+      });
+    };
+
+    tryPlay();
+  }, []);
+
   const toggle = () => {
     if (!audioRef.current) return;
     if (playing) {
