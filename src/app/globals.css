@@ -1,15 +1,23 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #ee2b5b;
-  --color-background-light: #FFFCF5;
-  --color-background-dark: #221015;
-  --color-soft-pink: #FCE7F3;
-  --color-peach: #FFEDD5;
-  --color-lavender: #E9D5FF;
-  --color-text-main: #4A3B42;
-  --font-display: "Plus Jakarta Sans", sans-serif;
-  --font-serif: "Playfair Display", serif;
+  --color-primary: #EC4899;
+  --color-primary-deep: #DB2777;
+  --color-primary-soft: #F9A8D4;
+  --color-background-light: #FFF7ED;
+  --color-background-warm: #FEF3E2;
+  --color-soft-pink: #FDF2F8;
+  --color-peach: #FFF1E6;
+  --color-lavender: #EDE9FE;
+  --color-lavender-deep: #C4B5FD;
+  --color-text-main: #4A3040;
+  --color-text-light: #7C6873;
+  --color-glass: rgba(255, 255, 255, 0.45);
+  --color-glass-border: rgba(255, 255, 255, 0.6);
+  --color-glow-pink: rgba(236, 72, 153, 0.3);
+  --color-glow-lavender: rgba(196, 181, 253, 0.3);
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Quicksand", sans-serif;
 }
 
 html {
@@ -17,51 +25,468 @@ html {
 }
 
 body {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(238, 43, 91, 0.2);
+  background: rgba(236, 72, 153, 0.2);
 }
 
-/* Float animation for images */
+.font-display {
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* ========================================
+   ANIMATED GRADIENT MESH BACKGROUND
+   ======================================== */
+@keyframes mesh-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+}
+
+.bg-mesh {
+  background: linear-gradient(
+    -45deg,
+    #FFF7ED,
+    #FDF2F8,
+    #EDE9FE,
+    #FFF1E6,
+    #FCE7F3,
+    #FFF7ED
+  );
+  background-size: 400% 400%;
+  animation: mesh-shift 20s ease infinite;
+}
+
+/* ========================================
+   FLOATING PARTICLES
+   ======================================== */
+@keyframes particle-rise {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90vh) rotate(20deg) scale(1);
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-10vh) rotate(360deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-drift {
+  0%, 100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(30px) translateY(-20px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(-10px) translateY(-40px) rotate(180deg);
+  }
+  75% {
+    transform: translateX(-30px) translateY(-20px) rotate(270deg);
+  }
+}
+
+@keyframes particle-float-gentle {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-12px) translateX(8px) rotate(5deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-22px) translateX(-3px) rotate(-3deg);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translateY(-10px) translateX(-8px) rotate(2deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+}
+
+.particle {
+  position: absolute;
+  pointer-events: none;
+  animation: particle-float-gentle 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.particle-rise {
+  position: absolute;
+  pointer-events: none;
+  animation: particle-rise 12s linear infinite;
+}
+
+/* ========================================
+   AURORA / GLOW EFFECTS
+   ======================================== */
+@keyframes aurora {
+  0% {
+    opacity: 0.25;
+    transform: translateX(-15%) translateY(0%) rotate(-3deg) scale(1);
+  }
+  20% {
+    opacity: 0.4;
+    transform: translateX(5%) translateY(-5%) rotate(1deg) scale(1.05);
+  }
+  40% {
+    opacity: 0.35;
+    transform: translateX(10%) translateY(3%) rotate(2deg) scale(1.1);
+  }
+  60% {
+    opacity: 0.45;
+    transform: translateX(-5%) translateY(-3%) rotate(-1deg) scale(1.08);
+  }
+  80% {
+    opacity: 0.3;
+    transform: translateX(-10%) translateY(5%) rotate(-2deg) scale(1.02);
+  }
+  100% {
+    opacity: 0.25;
+    transform: translateX(-15%) translateY(0%) rotate(-3deg) scale(1);
+  }
+}
+
+.aurora-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  animation: aurora 18s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* ========================================
+   GLASSMORPHISM
+   ======================================== */
+.glass {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* ========================================
+   ANIMATED GRADIENT TEXT
+   ======================================== */
+@keyframes gradient-text-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    #EC4899,
+    #A855F7,
+    #EC4899,
+    #F472B6
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-text-flow 6s ease infinite;
+}
+
+/* ========================================
+   ANIMATED BORDER GRADIENT
+   ======================================== */
+@keyframes border-dance {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.border-gradient {
+  position: relative;
+}
+
+.border-gradient::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #F9A8D4, #C4B5FD, #FBBF24, #F9A8D4);
+  background-size: 300% 300%;
+  animation: border-dance 4s ease infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+/* ========================================
+   SCROLL REVEAL ENHANCED (kept for fallback)
+   ======================================== */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  filter: blur(8px);
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* ========================================
+   FLOAT ANIMATION
+   ======================================== */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
 }
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Heartbeat animation */
+/* ========================================
+   HEARTBEAT
+   ======================================== */
 @keyframes heartbeat {
   0% { transform: scale(1); }
-  15% { transform: scale(1.05); }
+  15% { transform: scale(1.08); }
   30% { transform: scale(1); }
-  45% { transform: scale(1.05); }
+  45% { transform: scale(1.08); }
   100% { transform: scale(1); }
 }
 .animate-heartbeat {
   animation: heartbeat 2s infinite;
 }
 
-/* Fade in up for scroll reveal */
+/* ========================================
+   FADE IN UP
+   ======================================== */
 @keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 .animate-fade-in-up {
-  animation: fade-in-up 0.8s ease-out forwards;
+  animation: fade-in-up 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.font-serif {
-  font-family: 'Playfair Display', serif;
+/* ========================================
+   GLOW PULSE (for scroll arrow)
+   ======================================== */
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 0 0 25px rgba(236, 72, 153, 0.6);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* ========================================
+   CELEBRATION ANIMATIONS
+   ======================================== */
+@keyframes celebration-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-celebration-in {
+  animation: celebration-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes heart-explode {
+  0% {
+    transform: translate(0, 0) scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+    transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(var(--rot));
+  }
+  100% {
+    transform: translate(calc(var(--tx) * 2.5), calc(var(--ty) * 2.5 - 100px)) scale(0) rotate(calc(var(--rot) * 2));
+    opacity: 0;
+  }
+}
+
+.heart-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  animation: heart-explode 3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
+
+@keyframes typewriter-cursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #EC4899; }
+}
+
+/* ========================================
+   BOKEH EFFECT
+   ======================================== */
+@keyframes bokeh {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.3);
+  }
+}
+
+.bokeh {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(1px);
+  animation: bokeh ease-in-out infinite;
+}
+
+/* ========================================
+   SECTION GRADIENT TRANSITIONS
+   ======================================== */
+.section-fade-top {
+  position: relative;
+}
+
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--color-background-light), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, var(--color-background-light), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ========================================
+   LEVITATION SHADOW
+   ======================================== */
+@keyframes levitate {
+  0%, 100% {
+    transform: translateY(0px) rotate(2deg);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1.5deg);
+    box-shadow: 0 22px 55px rgba(0,0,0,0.12);
+  }
+  66% {
+    transform: translateY(-12px) rotate(2.5deg);
+    box-shadow: 0 28px 65px rgba(0,0,0,0.14);
+  }
+}
+
+.animate-levitate {
+  animation: levitate 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* ========================================
+   STAGGERED TEXT REVEAL
+   ======================================== */
+@keyframes word-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.word-reveal {
+  animation: word-reveal 0.5s ease forwards;
+  opacity: 0;
 }
