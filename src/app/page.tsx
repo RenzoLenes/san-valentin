@@ -415,7 +415,7 @@ function CelebrationScreen({ onClose }: { onClose: () => void }) {
         </p>
 
         <p className="text-lg text-primary/70 font-medium mb-12">
-          Te quiero infinitamente
+          Te amo hasta el infinito
         </p>
 
         <button
@@ -704,7 +704,7 @@ export default function Home() {
               <p className="text-base md:text-lg text-text-main/75 leading-relaxed font-light mb-6">
                 Cada momento a tu lado se convierte en una aventura. Desde los viajes que
                 planeamos juntos hasta las cenas improvisadas un martes cualquiera. No necesitamos
-                destinos lejanos para crear recuerdos, porque contigo hasta ir al supermercado
+                destinos lejanos para crear recuerdos, porque contigo hasta ir a caminar
                 se siente como una pelicula.
               </p>
               <div className="flex items-center gap-2 text-primary/50">
@@ -808,9 +808,9 @@ export default function Home() {
             </h2>
             <div className="glass-strong rounded-3xl p-10 md:p-14">
               <p className="font-display italic text-2xl md:text-3xl leading-relaxed text-text-main/85">
-                &ldquo;No necesito dias especiales para saber que te quiero, pero hoy es la excusa
+                &ldquo;No necesito dias especiales para saber que te amo, pero hoy es la excusa
                 perfecta para recordartelo. Quiero seguir sumando capitulos, viajes, cenas improvisadas
-                y mananas de domingo a tu lado.&rdquo;
+                y mañanas de domingo a tu lado.&rdquo;
               </p>
             </div>
             <div className="mt-10 flex justify-center">
